@@ -2,3 +2,4 @@ node_modules/
 keys/
 package-*.json
 .env
+email_passwords.txt
