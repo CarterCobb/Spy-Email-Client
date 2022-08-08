@@ -19,7 +19,7 @@ Create an email client application that can both send and receive an email messa
   - If the user chooses to sign the email, then your application should hash the email content and then encrypt the resulting signature using the sender's private key.
   - Develop a scheme for the email body that can flow through an existing email server and within the SMTP protocol (base64 encoding should probably be part of this scheme).  Somehow indicate to your receiving email client that the message has been encrypted and/or signed (your email client should also be able to handle regular plain text, unsigned emails). JSON as an organizing data-transport scheme will probably be your friend here.
 - When receiving an email:
-- The email client should check to see if the incoming email has been encrypted and/or signed.
+  - The email client should check to see if the incoming email has been encrypted and/or signed.
   - If the incoming email has been encrypted then the client should use the recipient's private key to decrypt the symmetric key and then use the now-decrypted symmetric key to decrypt the email content before displaying it.
   - If the incoming email has been signed then the client should use the sender's public key to validate the signature and then, in some way, indicate if the signature is valid.
   - Be sure that displaying the email content does not include any of your meta information, only the original message as intended.
