@@ -64,7 +64,7 @@ export default [
               subject,
               text: JSON.stringify({
                 client: "SPY_EMAIL_CLIENT",
-                ek: aesEncrypedKey,
+                aesEncrypedKey,
                 signature,
                 message: mutatedMessage,
                 settings,
