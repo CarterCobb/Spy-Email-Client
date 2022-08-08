@@ -21,7 +21,7 @@ export default [
         req.session.EMAIL_USERNAME = req.body.username;
         req.session.EMAIL_PASSWORD = req.body.password;
         req.session.save();
-        const user_id = req.session.EMAIL_USERNAME.split("@")[0];
+        const user_id = req.session.EMAIL_USERNAME.split("@")[0].toLowerCase();
         if (fs.existsSync(`./keys/${user_id}_private.pem`))
           return res.status(200).json({
             message: "Email credentials saved to user session",
