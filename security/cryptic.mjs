@@ -33,6 +33,42 @@ export default class Cryptic {
   }
 
   /**
+   * Get a random key for AES encryption
+   * @returns {String} random key
+   */
+  static generateAESKey() {
+    return crypto.randomBytes(16).toString("hex");
+  }
+
+  /**
+   * Encrypt data with AES
+   * @param {String} msg
+   * @param {String} key
+   * @returns {String} base64 encoded string of encrypted content
+   */
+  static encryptAES(data, key) {
+    let keyO = crypto.createHash("sha256").update(key).digest().subarray(0, 32);
+    const cipher = crypto.createCipheriv("aes-256-ecb", keyO, null);
+    cipher.setEncoding("base64");
+    return Buffer.concat([cipher.update(data), cipher.final()]).toString(
+      "base64"
+    );
+  }
+
+  /**
+   * Decrypt base64 AES content
+   * @param {String} b64Data
+   * @param {String} key
+   * @returns {String} Original plaintext
+   */
+  static decryptAES(b64Data, key) {
+    let keyO = crypto.createHash("sha256").update(key).digest().subarray(0, 32);
+    const decipher = crypto.createDecipheriv("aes-256-ecb", keyO, null);
+    let decrypted = decipher.update(Buffer.from(b64Data, "base64"));
+    return Buffer.concat([decrypted, decipher.final()]).toString();
+  }
+
+  /**
    * Encrypt data with public key for `user_id`
    * @param {String} data
    * @param {String} user_id
