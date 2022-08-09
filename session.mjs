@@ -14,7 +14,7 @@ export default class Session {
     const session_config = {
       secret: SESSION_SECRET,
       saveUninitialized: false,
-      resave: false,
+      resave: true,
       cookie: {
         httpOnly: false,
         secure: false,
