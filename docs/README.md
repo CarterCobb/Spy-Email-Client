@@ -11,13 +11,13 @@ This file will list all the backend API routes for this project.
 
 ### **[POST] /v1/login**
 
-Loggs into the API and stores a user session. If its the first login for this user, it will create an 2048 AES Key pair unique to that user.
+Logs into the API and stores a user session. If its the first login for this user, it will create an 2048 AES Key pair unique to that user.
 
 The login information is for a Gmail account using an [App Password](https://support.google.com/mail/answer/185833?hl=en-GB)
 
 Notes:
 
-- This route does **NOT** verify the gamil account
+- This route does **NOT** verify the gmail account
 - This route stores the credentials in the user session for encryptoon keys later on.
 
 Example Request:
@@ -52,7 +52,7 @@ Possible Errors:
 
 ### **[POST] /v1/logout**
 
-Loggs out of the API and destroys all traces of the user session.
+Logs out of the API and destroys all traces of the user session.
 
 Example Request:
 
