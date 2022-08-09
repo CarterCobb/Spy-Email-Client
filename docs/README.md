@@ -83,6 +83,7 @@ Notes:
 
 - Requires a user to be logged in and to hold a valid session with the API
 - This route will only send emails to known emails within the API (there has been a previous login and AES key pair generated).
+- Each recipient will have a different encryption key for the message. This is becasue the encryption is based on the recipient public and private key pair.
 
 Example Request:
 
