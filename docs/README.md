@@ -180,3 +180,10 @@ Response JSON Properties (per item in list):
 | `signed` | boolean | States if the message was signed |
 | `verified_signature` | boolean | States if the signature (if applied) is valid |
 | `received_at` | date | The date the email was received by the Gamil SMTP server |
+
+Possible Errors:
+
+| Error Code       | Description                                     |
+| ---------------- | ----------------------------------------------- |
+| 500 Server Error | The server failed to process the request |
+| 403 Forbidden | The user did not have the adequate credentials to fullfil the request |
