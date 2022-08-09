@@ -13,7 +13,7 @@ const ProtectedRoute = ({ element: Component, ...rest }) => {
   useEffect(() => {
     let mounted = true;
     if (mounted) {
-      const creds = JSON.stringify(ls.get("@creds") || "");
+      const creds = JSON.parse(ls.get("@creds") || "{}");
       if (creds.username && creds.password) setAuthenticated(true);
       else setAuthenticated(false)
     }
