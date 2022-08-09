@@ -164,7 +164,12 @@ Content-Type: application/json; charset=utf-8
         "message": "Go to https://not-a-scam.com/claim and enter your card details to confirm and book your vacation!!",
         "signed": true,
         "verified_signature": true,
-        "received_at": "2022-08-09T02:22:28.000Z"
+        "received_at": "2022-08-09T02:22:28.000Z",
+        "raw": {
+            "message:": "QKvFzyOR145CB/Vu2rvHxw==",
+            "signature": "<the original message signature>",
+            "encryption_key": "<post RSA encrypted AES key>" 
+        }
     }
 ]
 ```
@@ -180,6 +185,10 @@ Response JSON Properties (per item in list):
 | `signed` | boolean | States if the message was signed |
 | `verified_signature` | boolean | States if the signature (if applied) is valid |
 | `received_at` | date | The date the email was received by the Gamil SMTP server |
+| `raw`| object | The original raw values that were communicated over email |
+| `raw.message` | string | The raw non-decoded message |
+| `raw.signature` | string | Base64 encoded string of the message signature |
+| `raw.encryption_key` | string | The post RSA encryptoed AES key as a base64 encoded string. |
 
 Possible Errors:
 
