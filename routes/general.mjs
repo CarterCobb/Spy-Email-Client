@@ -23,9 +23,7 @@ export default [
         req.session.save();
         const user_id = req.session.EMAIL_USERNAME.split("@")[0].toLowerCase();
         if (fs.existsSync(`./keys/${user_id}_private.pem`))
-          return res.status(200).json({
-            message: "Email credentials saved to user session",
-          });
+          return res.sendStatus(200);
         child_process.exec(
           `openssl genrsa -aes256 -out ./keys/${user_id}_private.pem -passout pass:${req.session.EMAIL_PASSWORD} 2048`,
           (err) => {
@@ -36,9 +34,7 @@ export default [
                 (err2) => {
                   if (err2)
                     return res.status(500).json({ message: err2.message });
-                  return res.status(200).json({
-                    message: "Email credentials saved to user session",
-                  });
+                  return res.sendStatus(200);
                 }
               );
           }
