@@ -161,6 +161,11 @@ export default [
                   ? Cryptic.verifyRSA(rawMessage, signature, sender_id)
                   : false,
                 received_at: new Date(tryGetHeader(headers["date"])),
+                raw: {
+                  message: rawMessage,
+                  signature,
+                  encryption_key: encryptionKey,
+                },
               });
             }
           });
