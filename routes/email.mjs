@@ -2,6 +2,17 @@ import * as NSR from "node-server-router";
 import auth from "../auth.mjs";
 import nodemailer from "nodemailer";
 import Cryptic from "../security/cryptic.mjs";
+import imaps from "imap-simple";
+
+/**
+ * Get the header value OR null
+ * @param {Object} str
+ * @returns {String | null}
+ */
+const tryGetHeader = (header) => {
+  if (header instanceof Array) return header[0] || null;
+  else return null;
+};
 
 /**
  * @type {NSR.Routes}
@@ -45,7 +56,10 @@ export default [
             req.session.EMAIL_USERNAME.split("@")[0].toLowerCase();
           const pass = req.session.EMAIL_PASSWORD;
           for await (var recipient of to.split(",")) {
-            const recipient_user_id = recipient.split("@")[0].trim().toLowerCase();
+            const recipient_user_id = recipient
+              .split("@")[0]
+              .trim()
+              .toLowerCase();
             var mutatedMessage = message,
               aesKey = null,
               aesEncrypedKey = null,
@@ -57,18 +71,21 @@ export default [
             }
             if (settings.sign)
               signature = Cryptic.signRSA(mutatedMessage, caller_user_id, pass);
-            if (settings.raw) mutatedMessage = message;
+            if (settings.raw) {
+              mutatedMessage = message;
+              signature = "NONE";
+            }
             await transporter.sendMail({
               from: req.session.EMAIL_USERNAME,
               to: recipient,
               subject,
-              text: JSON.stringify({
-                client: "SPY_EMAIL_CLIENT",
-                aesEncrypedKey,
-                signature,
-                message: mutatedMessage,
-                settings,
-              }),
+              headers: {
+                "x-se-client": "SPY_EMAIL_CLIENT",
+                "x-se-aes-encryption-key": aesEncrypedKey,
+                "x-se-signature": signature || "NONE",
+                "x-se-settings": JSON.stringify(settings),
+              },
+              text: mutatedMessage,
             });
           }
           return res.sendStatus(200);
@@ -80,15 +97,80 @@ export default [
   },
   /**
    * Retrive new emails from the inbox
-   * @todo implement
    */
   {
     url: "/receive",
     action: NSR.HTTPAction.GET,
     handlers: [
       auth,
-      (req, res) => {
-        return res.status(200).json([]);
+      async (req, res) => {
+        try {
+          const connection = await imaps.connect({
+            imap: {
+              user: req.session.EMAIL_USERNAME,
+              password: req.session.EMAIL_PASSWORD,
+              host: "imap.gmail.com",
+              port: 993,
+              authTimeout: 10000,
+              tls: true,
+              tlsOptions: { rejectUnauthorized: false },
+            },
+          });
+          await connection.openBox("INBOX");
+          const fetchOptions = {
+            bodies: ["HEADER", "TEXT"],
+            markSeen: false,
+          };
+          const results = await connection.search(
+            ["UNSEEN", ["SINCE", new Date()]],
+            fetchOptions
+          );
+          const messages = [];
+          const user_id =
+            req.session.EMAIL_USERNAME.split("@")[0].toLowerCase();
+          const pass = req.session.EMAIL_PASSWORD;
+          results.forEach((result) => {
+            const text = result.parts.filter((part) => part.which === "TEXT");
+            const headers = result.parts.filter(
+              (part) => part.which === "HEADER"
+            )[0].body;
+            if (tryGetHeader(headers["x-se-client"]) === "SPY_EMAIL_CLIENT") {
+              const encryptionKey = tryGetHeader(
+                headers["x-se-aes-encryption-key"]
+              );
+              const signature = tryGetHeader(headers["x-se-signature"]);
+              const rawMessage = text[0]?.body?.trim();
+              const decodedAESKey = Cryptic.decryptRSA(
+                encryptionKey,
+                user_id,
+                pass
+              );
+              const message = Cryptic.decryptAES(rawMessage, decodedAESKey);
+              const sender_id = tryGetHeader(headers["from"])
+                .split("@")[0]
+                .toLowerCase();
+              messages.push({
+                uid: result.attributes.uid,
+                from: tryGetHeader(headers["from"]),
+                subject: tryGetHeader(headers["subject"]),
+                message,
+                signed: signature !== "NONE",
+                verified_signature: Cryptic.verifyRSA(
+                  rawMessage,
+                  signature,
+                  sender_id
+                ),
+                received_at: new Date(tryGetHeader(headers["date"])),
+              });
+            }
+          });
+          for await (var message of messages)
+            await connection.addFlags(message.uid, "\\Seen");
+          connection.end();
+          return res.status(200).json(messages);
+        } catch (error) {
+          return res.status(500).json({ message: error.message });
+        }
       },
     ],
   },
