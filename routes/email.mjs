@@ -71,10 +71,7 @@ export default [
             }
             if (settings.sign)
               signature = Cryptic.signRSA(mutatedMessage, caller_user_id, pass);
-            if (settings.raw) {
-              mutatedMessage = message;
-              signature = "NONE";
-            }
+            if (settings.raw) mutatedMessage = message;
             await transporter.sendMail({
               from: req.session.EMAIL_USERNAME,
               to: recipient,
