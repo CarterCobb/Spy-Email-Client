@@ -167,8 +167,8 @@ Content-Type: application/json; charset=utf-8
         "received_at": "2022-08-09T02:22:28.000Z",
         "raw": {
             "message:": "QKvFzyOR145CB/Vu2rvHxw==",
-            "signature": "<the original message signature>",
-            "encryption_key": "<post RSA encrypted AES key>" 
+            "signature": "328HKNmAeioJVqnoW6j2+HsBg3O7YTRaCqUn62KnFF8bysKzkLQnc/y+JRQigKh+9c0dp0D/7/L7n0LjJCtqZq...",
+            "encryption_key": "xGDXlC0nZzzzrip6pg27Q4RdFlgqnzti+UB4gmUlPkfAUCoLijMJGkVRluXlJqTjgrx7nozP9rYlx9o..." 
         }
     }
 ]
@@ -185,10 +185,10 @@ Response JSON Properties (per item in list):
 | `signed` | boolean | States if the message was signed |
 | `verified_signature` | boolean | States if the signature (if applied) is valid |
 | `received_at` | date | The date the email was received by the Gamil SMTP server |
-| `raw`| object | The original raw values that were communicated over email |
+| `raw`| object | The original raw values that were communicated over email. _Does **NOT** expose private data_ |
 | `raw.message` | string | The raw non-decoded message |
 | `raw.signature` | string | Base64 encoded string of the message signature |
-| `raw.encryption_key` | string | The post RSA encryptoed AES key as a base64 encoded string. |
+| `raw.encryption_key` | string | The post RSA encrypted AES key as a base64 encoded string |
 
 Possible Errors:
 
