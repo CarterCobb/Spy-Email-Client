@@ -7,7 +7,7 @@ import Matrix from "./MatrixCanvas";
 export const fallback = (
   <Fragment>
     <Matrix />
-    <div className="loading-caontainer">
+    <div className="loading-container">
       <div class="loading-fallback">
         <div />
         <div />
