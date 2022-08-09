@@ -32,6 +32,19 @@ Create an email client application that can both send and receive an email messa
   - Display the decrypted content of the particular chosen email
   - Be sure that any user can act as both a sender and receiver of email. Be prepared to demonstrate two totally separate users conducting an encrypted conversation, using only your email application
 
+## Project Tech-Stack
+
+For this project the following items were used to develop out a program to satisfy the above requirements:
+
+- React.js (Frontend)
+  - JavaScript
+- Node.js (Backend)
+  - Express.js
+  - Express-Session
+  - Nodemailer
+  - SMTP/IMAP
+  - JavaScript
+
 ## Pre Run
 
 - Create a `.env` file in the root of the directory and add the following variable(s):
