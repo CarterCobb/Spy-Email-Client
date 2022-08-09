@@ -25,4 +25,18 @@ export default class EmailAPI {
       return false;
     }
   }
+
+  /**
+   * Refreshes emails and gets new emails relevant to the program. Will not return and seen emails.
+   * @returns {Promise<Array<Object>>} new unseen emails
+   */
+  static async refreshEmails() {
+    try {
+      const emails = await axios.get("/v1/receive", { withCredentials: true });
+      return emails.data || [];
+    } catch (e) {
+      console.log("EMAIL QUERY ERR:", e);
+      return [];
+    }
+  }
 }
