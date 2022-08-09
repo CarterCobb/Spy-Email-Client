@@ -8,7 +8,7 @@ export const fallback = (
   <Fragment>
     <Matrix />
     <div className="loading-container">
-      <div class="loading-fallback">
+      <div className="loading-fallback">
         <div />
         <div />
         <div />
