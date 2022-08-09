@@ -7,14 +7,17 @@ export default class EmailAPI {
    * @param {String} subject
    * @param {String} message
    * @param {{aes: Boolean, sign: Boolean, raw: Boolean}} settings
-   * @returns {Boolean} successfully sent email to recipient(s)
+   * @returns {Promise<Boolean>} successfully sent email to recipient(s)
    */
   static async sendEmail(to, subject, message, settings) {
     try {
       await axios.post(
         "/v1/send",
         JSON.stringify({ to, subject, message, settings }),
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
       );
       return true;
     } catch (e) {
