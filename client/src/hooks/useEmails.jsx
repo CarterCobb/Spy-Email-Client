@@ -12,7 +12,6 @@ const useEmails = () => {
 
   /**
    * Request the full email objects
-   * @param {Array<String>} ids
    */
   const request = () => {
     setLoading(true);
