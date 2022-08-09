@@ -132,17 +132,22 @@ export default [
               (part) => part.which === "HEADER"
             )[0].body;
             if (tryGetHeader(headers["x-se-client"]) === "SPY_EMAIL_CLIENT") {
-              const encryptionKey = tryGetHeader(
-                headers["x-se-aes-encryption-key"]
+              const settings = JSON.parse(
+                tryGetHeader(headers["x-se-settings"])?.trim() || ""
               );
-              const signature = tryGetHeader(headers["x-se-signature"]);
               const rawMessage = text[0]?.body?.trim();
-              const decodedAESKey = Cryptic.decryptRSA(
-                encryptionKey,
-                user_id,
-                pass
-              );
-              const message = Cryptic.decryptAES(rawMessage, decodedAESKey);
+              const encryptionKey = settings?.aes
+                ? tryGetHeader(headers["x-se-aes-encryption-key"])
+                : null;
+              const signature = settings?.sign
+                ? tryGetHeader(headers["x-se-signature"])
+                : "NONE";
+              const decodedAESKey = settings?.aes
+                ? Cryptic.decryptRSA(encryptionKey, user_id, pass)
+                : null;
+              const message = settings?.aes
+                ? Cryptic.decryptAES(rawMessage, decodedAESKey)
+                : rawMessage;
               const sender_id = tryGetHeader(headers["from"])
                 .split("@")[0]
                 .toLowerCase();
@@ -152,11 +157,9 @@ export default [
                 subject: tryGetHeader(headers["subject"]),
                 message,
                 signed: signature !== "NONE",
-                verified_signature: Cryptic.verifyRSA(
-                  rawMessage,
-                  signature,
-                  sender_id
-                ),
+                verified_signature: settings?.sign
+                  ? Cryptic.verifyRSA(rawMessage, signature, sender_id)
+                  : false,
                 received_at: new Date(tryGetHeader(headers["date"])),
               });
             }
