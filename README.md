@@ -56,7 +56,7 @@ There are extensive API docs found [here](https://github.com/CarterCobb/Spy-Emai
 
 ## Run
 
-The program is multi-clustered (will run on each CPU core on the computer) so you will see multiple logs for the same program. The program round-robins the running instances for an extra layer of resilience. **This project uses Gmail as its SMTP client. All email accounts must be Gmail**
+This project uses Gmail as its SMTP client. All email accounts must be Gmail.
 
 To encure gmail compatability & automatically generate an AES key pair for the system:
 
