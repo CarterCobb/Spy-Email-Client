@@ -1,20 +1,19 @@
-import React from "react";
-
-const styles = {
-  center: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100vw",
-    height: "100vh",
-  },
-};
+import React, { Fragment } from "react";
+import Matrix from "./MatrixCanvas";
 
 /**
  * React Suspense fallback UI
  */
 export const fallback = (
-  <div style={styles.center}>
-    <h1>Loading...</h1>
-  </div>
+  <Fragment>
+    <Matrix />
+    <div className="loading-caontainer">
+      <div class="loading-fallback">
+        <div />
+        <div />
+        <div />
+      </div>
+      <h2>Loading secure data...</h2>
+    </div>
+  </Fragment>
 );
