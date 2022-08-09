@@ -4,10 +4,10 @@ This file will list all the backend API routes for this project.
 
 ## Endpoints
 
-> [[POST] /v1/login](https://github.com/CarterCobb/Spy-Email-Client/docs#post-v1login)  
-> [[POST] /v1/logout](https://github.com/CarterCobb/Spy-Email-Client/docs#post-v1logout)  
-> [[POST] /v1/send](https://github.com/CarterCobb/Spy-Email-Client/docs#post-v1send)  
-> [[GET] /v1/receive](https://github.com/CarterCobb/Spy-Email-Client/docs#get-v1receive)
+> [[POST] /v1/login](https://github.com/CarterCobb/Spy-Email-Client/tree/master/docs#post-v1login)  
+> [[POST] /v1/logout](https://github.com/CarterCobb/Spy-Email-Client/tree/master/docs#post-v1logout)  
+> [[POST] /v1/send](https://github.com/CarterCobb/Spy-Email-Client/tree/master/docs#post-v1send)  
+> [[GET] /v1/receive](https://github.com/CarterCobb/Spy-Email-Client/tree/master/docs#get-v1receive)
 
 ### **[POST] /v1/login**
 
