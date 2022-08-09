@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 
 export default class Matrix extends Component {
   static defaultProps = {
@@ -16,13 +16,14 @@ export default class Matrix extends Component {
     this.state = {
       canvas: null,
     };
+    this.canvas = createRef()
 
     this.draw = this.draw.bind(this);
     this.updateDimensions = this.updateDimensions.bind(this);
   }
 
   componentDidMount() {
-    this.setState({ canvas: this.refs.canvas }, () => {
+    this.setState({ canvas: this.canvas.current }, () => {
       let columns = [];
       let context = this.state.canvas.getContext("2d");
       let size = this.props.colSize;
@@ -103,7 +104,7 @@ export default class Matrix extends Component {
           left: 0,
         }}
       >
-        <canvas ref="canvas" />
+        <canvas ref={this.canvas} />
       </div>
     );
   }
