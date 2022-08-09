@@ -45,7 +45,7 @@ For this project the following items were used to develop out a program to satis
   - SMTP/IMAP
   - JavaScript
 
-## API Docs 
+## API Docs
 
 There are extensive API docs found [here](https://github.com/CarterCobb/Spy-Email-Client/tree/master/docs) for all of the backend functionality.
 
