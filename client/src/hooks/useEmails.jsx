@@ -15,7 +15,7 @@ const useEmails = () => {
     if (mounted) {
       setLoading(true);
       axios
-        .get("/v1/receive")
+        .get("/v1/receive", { withCredentials: true })
         .then(({ data }) => setEmails(data))
         .catch(setError)
         .finally(() => setLoading(false));
