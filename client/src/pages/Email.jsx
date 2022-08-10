@@ -11,6 +11,7 @@ import TrashPNG from "../assets/trash.png";
 import MailPNG from "../assets/mail.png";
 import { Dropdown, Menu, Modal, List } from "antd";
 import GeneralAPI from "../api/general";
+import { ls } from "../api/general";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -142,7 +143,7 @@ const Home = () => {
         <p>No Trash :(</p>
       </Modal>
       <Modal
-        title="Spy Emails"
+        title={`Spy Emails - ${JSON.parse(ls.get("@creds"))?.username}`}
         closeIcon={<span>X</span>}
         visible={openMail}
         footer={null}
