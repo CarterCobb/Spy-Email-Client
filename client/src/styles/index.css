@@ -23,7 +23,7 @@ code {
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  color: white;
+  color: white !important;
   font-family: Consolas, monaco, monospace;
 }
 
@@ -63,12 +63,12 @@ code {
     top: 8px;
     height: 64px;
   }
-  50%, 100% {
+  50%,
+  100% {
     top: 24px;
     height: 32px;
   }
 }
-
 
 /* +==========================+ */
 /* |        HOME PAGE         | */
@@ -148,4 +148,280 @@ code {
     min-width: 50%;
     max-width: 50%;
   }
+}
+
+/* +==========================+ */
+/* |       PORTAL PAGE        | */
+/* +==========================+ */
+
+.desktop-container {
+  width: 100vw;
+  padding: 20px 15px 50px 15px;
+  color: white;
+}
+
+.desktop-background-img {
+  position: absolute;
+  margin: auto;
+  left: calc(50% - 150px);
+  top: calc(50% - 175px);
+  max-width: 300px;
+  min-width: 300px;
+}
+
+.desktop-app {
+  float: left;
+}
+
+.desktop-app-container:hover {
+  cursor: pointer;
+}
+
+.desktop-app div h3 {
+  color: white;
+  text-align: center;
+  margin-top: -5px;
+}
+
+.desktop-button {
+  max-width: 50px;
+  min-width: 50px;
+  height: auto;
+  margin: 10px;
+}
+
+.footer-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: black;
+  min-height: 50px;
+  max-height: 50px;
+  width: 100vw;
+  border-top: solid 2px #00cc33;
+}
+
+.footer-clock {
+  max-height: 40px;
+  min-height: 40px;
+  float: right;
+  color: #00cc33;
+  font-family: Consolas, monaco, monospace;
+  border-left: solid 1px white;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.footer-root {
+  float: left;
+  max-height: 40px;
+  min-height: 40px;
+  width: auto;
+  padding-top: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.footer-root:hover {
+  cursor: pointer;
+}
+
+.emails-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.refresh-btn {
+  margin-top: 5px;
+  margin-bottom: 1em;
+  margin-right: 8px;
+  padding: 0px 4px 0px 4px;
+  font-size: 14px;
+  color: #00cc33;
+  font-family: Consolas, monaco, monospace;
+  border: solid 2px #00cc33;
+  background: #00cc331d;
+}
+
+.refresh-btn:hover {
+  cursor: pointer;
+  color: white;
+}
+
+.new-email-btn {
+  margin-top: 5px;
+  margin-bottom: 1em;
+  margin-right: 8px;
+  padding: 0px 4px 0px 4px;
+  font-size: 14px;
+  color: white;
+  font-family: Consolas, monaco, monospace;
+  border: solid 2px white;
+  background: #00cc331d;
+}
+
+.new-email-btn:hover {
+  cursor: pointer;
+  color: #00cc33;
+}
+
+.footer-email-data {
+  color: cornflowerblue;
+}
+
+.footer-email-data.from {
+  color: goldenrod;
+}
+
+.email-signature {
+  color: red;
+}
+
+.email-signature.verified {
+  color: #00cc33;
+}
+
+.footer-info-container {
+  border-left: solid 1px white;
+  padding-left: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.footer-view-raw-data {
+  margin-top: 5px;
+  padding: 0px 4px 0px 4px;
+  font-size: 14px;
+  color: #00cc33;
+  font-family: Consolas, monaco, monospace;
+  border: solid 2px #00cc33;
+  background: #00cc331d;
+}
+
+.footer-view-raw-data:hover {
+  cursor: pointer;
+  color: white;
+}
+
+.raw-data-title {
+  color: white;
+}
+
+.raw-data-content {
+  color: #00cc33;
+}
+
+/* +==========================+ */
+/* |        ANTD EDITS        | */
+/* +==========================+ */
+
+.ant-dropdown-menu {
+  background-color: black !important;
+}
+
+.ant-dropdown-menu-item {
+  font-family: Consolas, monaco, monospace !important;
+  background-color: black !important;
+  color: #00cc33 !important;
+  transition: all 0s !important;
+}
+
+.ant-dropdown-menu-item:hover {
+  background-color: black !important;
+  cursor: pointer !important;
+  color: white !important;
+}
+
+.ant-modal-content {
+  font-family: Consolas, monaco, monospace !important;
+  background-color: black !important;
+  color: #00cc33 !important;
+  border: solid 1px #00cc33 !important;
+}
+
+.ant-modal-close {
+  color: #00cc33 !important;
+  font-family: Consolas, monaco, monospace !important;
+  height: 30px !important;
+  width: 30px !important;
+}
+
+.ant-modal-close-x {
+  height: 30px !important;
+  width: 30px !important;
+  line-height: 30px !important;
+  font-family: Consolas, monaco, monospace !important;
+}
+
+.ant-modal-header {
+  background-color: black !important;
+  color: #00cc33 !important;
+  height: 35px !important;
+  padding: 5px !important;
+}
+
+.ant-modal-title {
+  font-family: Consolas, monaco, monospace !important;
+  color: #00cc33 !important;
+}
+
+.ant-list-item-meta-title {
+  color: white !important;
+}
+
+.ant-list-item-meta-description {
+  color: #00cc33 !important;
+}
+
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link {
+  background-color: black !important;
+  color: #00cc33 !important;
+  border-color: white !important;
+}
+
+.ant-pagination-disabled .ant-pagination-item-link {
+  color: lightgrey !important;
+}
+
+.ant-pagination-item {
+  background: black !important;
+  border-color: white !important;
+}
+
+.ant-pagination-item a {
+  color: white !important;
+}
+
+.ant-pagination-item-active {
+  background: black !important;
+  border-color: #00cc33 !important;
+}
+
+.ant-pagination-item-active a {
+  color: white !important;
+}
+
+.ant-empty-description {
+  color: #00cc33 !important;
+}
+
+.ant-spin {
+  color: #00cc33 !important;
+}
+
+.ant-spin-dot-item {
+  background-color: #00cc33 !important;
+}
+
+.ant-spin-blur {
+  opacity: 0 !important;
+  height: 300px !important;
 }
