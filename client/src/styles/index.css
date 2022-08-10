@@ -171,6 +171,10 @@ code {
   float: left;
 }
 
+.desktop-app-container h3 {
+  font-family: Consolas, monaco, monospace;
+}
+
 .desktop-app-container:hover {
   cursor: pointer;
 }
