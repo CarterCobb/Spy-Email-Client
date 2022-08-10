@@ -13,7 +13,7 @@ export const fallback = (
         <div />
         <div />
       </div>
-      <h2>Loading secure data...</h2>
+      <h2 style={{ color: "white" }}>Loading secure data...</h2>
     </div>
   </Fragment>
 );
