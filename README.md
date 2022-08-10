@@ -1,7 +1,5 @@
 # Spy Email Client
 
-> :bangbang: This project is in development. It satisfies all the technical requirements but is undergoing bug fixes.
-
 Create an email client application that can both send and receive an email message using an email service of your choice (Gmail is a popular and easy-to-use option).  The email client that you build will allow users to both encrypt and/or sign the email, prior to sending. Your email client should also be capable of receiving, decrypting, reading, and displaying newly incoming encrypted and/or signed email. If an incoming email has been encrypted your client will need to decrypt it.  If an incoming email has been signed, your client application should attempt to verify the signature, and display this to the user.
 
 ## Requirements
