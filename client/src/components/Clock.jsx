@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-Number.prototype.pad = function (size) {
-  var s = String(this);
-  while (s.length < (size || 2)) s = "0" + s;
+/**
+ * Pads 0 or 1 zeros to front of numer
+ * @param {Number} number
+ * @returns {String}
+ */
+const pad = (numer) => {
+  var s = String(numer);
+  while (s.length < 2) s = "0" + s;
   return s;
 };
 
@@ -19,12 +24,18 @@ const Clock = () => {
       <span>
         {time.getFullYear() +
           "/" +
-          (time.getMonth() + 1).pad() +
+          pad(time.getMonth() + 1) +
           "/" +
-          time.getDate().pad()}
+          pad(time.getDate())}
       </span>
       <span>
-        {time.getHours() + ":" + time.getMinutes().pad() + ":" + time.getSeconds().pad() + " " + ((time.getHours() >= 12) ? "PM" : "AM")}
+        {time.getHours() +
+          ":" +
+          pad(time.getMinutes()) +
+          ":" +
+          pad(time.getSeconds()) +
+          " " +
+          (time.getHours() >= 12 ? "PM" : "AM")}
       </span>
     </div>
   );
