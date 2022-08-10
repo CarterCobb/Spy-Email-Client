@@ -14,10 +14,20 @@ import GeneralAPI from "../api/general";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
+  const [loadingMailSend, setLoadingMailSend] = useState(false);
   const [openMail, setOpenMail] = useState(false);
   const [openTrash, setOpenTrash] = useState(false);
+  const [openSendEmail, setOpenSendEmail] = useState(false);
   const [rawData, setRawData] = useState(null);
   const [refreshedList, setRefreshedList] = useState([]);
+
+  const [to, setTo] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [aes, setAes] = useState(false);
+  const [sign, setSign] = useState(false);
+  const [raw, setRaw] = useState(true);
+
   const navigate = useNavigate();
   const emails = useEmails();
 
@@ -36,6 +46,27 @@ const Home = () => {
       const loggedOut = await GeneralAPI.logout();
       if (loggedOut) navigate("/");
     }
+  };
+
+  const onSendEmail = async (e) => {
+    setLoadingMailSend(true);
+    e.preventDefault();
+    const sentEmail = await EmailAPI.sendEmail(to, subject, message, {
+      aes,
+      raw,
+      sign,
+    });
+    if (sentEmail) {
+      setOpenSendEmail(false);
+      alert("Email Sent!");
+    } else alert("Failed to Send Email :(");
+    setTo("");
+    setSubject("");
+    setMessage("");
+    setAes(false);
+    setSign(false);
+    setRaw(false);
+    setLoadingMailSend(false);
   };
 
   const rootMenu = (
@@ -126,7 +157,7 @@ const Home = () => {
           <div className="refresh-btn" onClick={() => refreshInbox()}>
             Refresh
           </div>
-          <div className="new-email-btn" onClick={() => {}}>
+          <div className="new-email-btn" onClick={() => setOpenSendEmail(true)}>
             Send Email
           </div>
         </div>
@@ -207,6 +238,79 @@ const Home = () => {
             <span className="raw-data-content">{rawData?.encryption_key}</span>
           </span>
         </div>
+      </Modal>
+      <Modal
+        title="Send Email"
+        closeIcon={<span>X</span>}
+        visible={openSendEmail}
+        footer={null}
+        centered
+        onCancel={() => setOpenSendEmail(false)}
+      >
+        <form onSubmit={onSendEmail} className="send-email-form">
+          <label>To:</label>
+          <input
+            className="send-email-field"
+            value={to}
+            onChange={({ target: { value } }) => setTo(value.toLowerCase())}
+            placeholder="email(s) comma separated..."
+          />
+          <label>Subject:</label>
+          <input
+            className="send-email-field"
+            value={subject}
+            onChange={({ target: { value } }) => setSubject(value)}
+          />
+          <label>Message:</label>
+          <textarea
+            rows={4}
+            cols={56}
+            value={message}
+            className="send-email-textarea"
+            onChange={({ target: { value } }) => setMessage(value)}
+          />
+          <span>
+            <input
+              type="checkbox"
+              checked={aes}
+              onChange={() => {
+                if (raw) setRaw(false);
+                setAes(!aes);
+              }}
+            />
+            <label className="send-email-settings-label">
+              Encrypt with AES
+            </label>
+          </span>
+          <span>
+            <input
+              type="checkbox"
+              checked={sign}
+              onChange={() => setSign(!sign)}
+            />
+            <label className="send-email-settings-label">
+              Create a signature
+            </label>
+          </span>
+          <span>
+            <input
+              type="checkbox"
+              checked={raw}
+              onChange={() => {
+                if (aes) setAes(false);
+                setRaw(!raw);
+              }}
+            />
+            <label className="send-email-settings-label">
+              Send raw with no AES encryption
+            </label>
+          </span>
+          {loadingMailSend ? (
+            <label className="send-email-settings-label load">Loading...</label>
+          ) : (
+            <input type="submit" value="Send" className="send-email-submit" />
+          )}
+        </form>
       </Modal>
     </Fragment>
   );
