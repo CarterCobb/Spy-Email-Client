@@ -100,7 +100,6 @@ code {
 }
 
 .login-field {
-  height: 25px;
   min-width: 20%;
   max-width: 20%;
   font-size: larger;
@@ -113,7 +112,6 @@ code {
 }
 
 .login-submit {
-  height: 25px;
   font-size: 14px;
   color: #00cc33;
   font-family: Consolas, monaco, monospace;
@@ -316,6 +314,57 @@ code {
 
 .raw-data-content {
   color: #00cc33;
+}
+
+/* +==========================+ */
+/* |        SEND EMAIL        | */
+/* +==========================+ */
+
+.send-email-form {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.send-email-field {
+  width: 100%;
+  font-family: Consolas, monaco, monospace;
+  margin: 3px 0px 12px 0px;
+  outline: none;
+  border: solid 2px #00cc33;
+  background: #00cc331d;
+  color: white;
+}
+
+.send-email-textarea {
+  font-family: Consolas, monaco, monospace;
+  margin: 3px 0px 12px 0px;
+  outline: none;
+  border: solid 2px #00cc33;
+  background: #00cc331d;
+  color: white;
+}
+
+.send-email-settings-label {
+  margin-left: 10px;
+}
+
+.send-email-settings-label.load {
+  margin-top: 10px;
+}
+
+.send-email-submit {
+  margin-top: 15px;
+  color: #00cc33;
+  font-family: Consolas, monaco, monospace;
+  border: solid 2px #00cc33;
+  background: #00cc331d;
+}
+
+.send-email-submit:hover {
+  cursor: pointer;
+  color: white;
 }
 
 /* +==========================+ */
