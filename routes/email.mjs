@@ -135,7 +135,7 @@ export default [
               const settings = JSON.parse(
                 tryGetHeader(headers["x-se-settings"])?.trim() || ""
               );
-              const rawMessage = text[0]?.body.replace(/\r?\n|\r|=\r?\n/g, " ");
+              const rawMessage = text[0]?.body.replace(/\r?\n|\r|=\r?\n/g, "");
               const encryptionKey = settings?.aes
                 ? tryGetHeader(headers["x-se-aes-encryption-key"])
                 : null;
